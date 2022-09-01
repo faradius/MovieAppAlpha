@@ -1,9 +1,9 @@
 package com.alex.movieapp.domain_repository
 
 import com.alex.movieapp.data.model.MovieList
-import com.alex.movieapp.data.remote.MovieDataSource
+import com.alex.movieapp.data.remote.RemoteMovieDataSource
 
-class MovieRepositoryImpl(private val dataSource: MovieDataSource): MovieRepository {
+class MovieRepositoryImpl(private val dataSource: RemoteMovieDataSource): MovieRepository {
     //Desde el repositorio(Domain) estamos llamando al datasource a sus metodos
     override suspend fun getUpcomingMovies(): MovieList = dataSource.getUpcomingMovies()
 

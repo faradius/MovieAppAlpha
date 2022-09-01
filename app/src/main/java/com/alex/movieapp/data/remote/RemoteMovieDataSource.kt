@@ -4,7 +4,7 @@ import com.alex.movieapp.data.model.MovieList
 import com.alex.movieapp.domain_repository.WebService
 import com.alex.movieapp.utils.AppConstants
 
-class MovieDataSource(private val webService: WebService) {
+class RemoteMovieDataSource(private val webService: WebService) {
 
     suspend fun getUpcomingMovies(): MovieList = webService.getUpcomingMovies(AppConstants.API_KEY)
 
