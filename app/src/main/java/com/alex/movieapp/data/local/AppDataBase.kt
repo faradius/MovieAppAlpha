@@ -7,24 +7,26 @@ import androidx.room.RoomDatabase
 import com.alex.movieapp.data.model.MovieEntity
 
 @Database(entities = [MovieEntity::class], version = 1)
-abstract class AppDataBase :RoomDatabase(){
-    abstract fun movieDao():MovieDao
+abstract class AppDatabase : RoomDatabase() {
 
-    companion object{
-        private  var INSTANCE: AppDataBase? = null
+    abstract fun movieDao(): MovieDao
 
-        fun getDataBase(context: Context):AppDataBase{
+    companion object {
+
+        private var INSTANCE: AppDatabase? = null
+
+        fun getDatabase(context: Context): AppDatabase {
             INSTANCE = INSTANCE ?: Room.databaseBuilder(
                 context.applicationContext,
-                AppDataBase::class.java,
-                "movie_table"
+                AppDatabase::class.java,
+                "movies.db"
             ).build()
             return INSTANCE!!
         }
 
-        fun destroyInstance(){
+        fun destroyInstance() {
             INSTANCE = null
         }
-
     }
+
 }

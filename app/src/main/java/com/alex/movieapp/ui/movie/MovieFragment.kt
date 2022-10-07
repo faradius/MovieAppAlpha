@@ -10,6 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import com.alex.movieapp.R
 import com.alex.movieapp.core.ResourceResult
+import com.alex.movieapp.data.local.AppDatabase
+import com.alex.movieapp.data.local.LocalMovieDataSource
 import com.alex.movieapp.data.model.Movie
 import com.alex.movieapp.data.remote.RemoteMovieDataSource
 import com.alex.movieapp.databinding.FragmentMovieBinding
@@ -26,7 +28,12 @@ import com.alex.movieapp.ui.movie.adapters.concat.UpcomingMovieConcatAdapter
 class MovieFragment : Fragment(R.layout.fragment_movie),MovieAdapter.OnMovieClickListener {
 
     private lateinit var binding:FragmentMovieBinding
-    private val viewModel by viewModels<MovieViewModel> { MovieViewModelFactory(MovieRepositoryImpl(RemoteMovieDataSource(RetrofitClient.webService))) }
+    private val viewModel by viewModels<MovieViewModel> {
+        MovieViewModelFactory(
+            MovieRepositoryImpl(
+                RemoteMovieDataSource(RetrofitClient.webService),
+                LocalMovieDataSource(AppDatabase.getDatabase(requireContext()).movieDao())
+            )) }
 
     private lateinit var concatAdapter: ConcatAdapter
 
